@@ -1,0 +1,48 @@
+COLOR 0 0 0
+CLEAR
+
+CIRCLE 150
+
+COLOR 0 0 0
+RECT 10 10
+
+ANIM_START
+
+
+   
+    MOVE 150 150
+    ROTATE (TIME_HOUR * 30)  # Each hour is 30 degrees (360 degrees / 12 hours)
+    LINE 0 -50
+
+
+    MOVE 150 150
+    ROTATE (TIME_MINUTE * 6)  # Each minute is 6 degrees (360 degrees / 60 minutes)
+    LINE 0 -70
+
+
+    MOVE 150 150
+    ROTATE (TIME_SECOND * 6)  # Each second is 6 degrees (360 degrees / 60 seconds)
+    LINE 0 -90
+
+    WAIT 1000  
+
+
+    TIME_SECOND TIME_SECOND + 1
+    IF TIME_SECOND >= 60
+        TIME_SECOND 0
+        TIME_MINUTE TIME_MINUTE + 1
+    ENDIF
+
+    IF TIME_MINUTE >= 60
+        TIME_MINUTE 0
+        TIME_HOUR TIME_HOUR + 1
+    ENDIF
+
+    IF TIME_HOUR >= 12
+        TIME_HOUR 0
+    ENDIF
+
+    CLEAR
+ENDLOOP
+
+ANIM_END
