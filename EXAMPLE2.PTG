@@ -1,0 +1,55 @@
+COLOR 0 0 0
+CLEAR
+
+# Draw the clock face (circle)
+CIRCLE 150
+
+# Draw clock center
+COLOR 0 0 0
+RECT 10 10
+
+# Set initial angles for the hands (in degrees)
+HOUR_ANGLE 0
+MINUTE_ANGLE 0
+SECOND_ANGLE 0
+
+# Start the animation
+ANIM_START
+
+# Loop to update clock hands every second
+LOOP 3600  # 3600 iterations, representing 1 hour (each second is 1 iteration)
+    # Draw hour hand
+    COLOR 0 0 0
+    MOVE 150 150
+    ROTATE HOUR_ANGLE
+    LINE 0 -50  # Hour hand length 50
+
+    # Draw minute hand
+    COLOR 0 0 255
+    MOVE 150 150
+    ROTATE MINUTE_ANGLE
+    LINE 0 -70  # Minute hand length 70
+
+    # Draw second hand
+    COLOR 255 0 0
+    MOVE 150 150
+    ROTATE SECOND_ANGLE
+    LINE 0 -90  # Second hand length 90
+
+    # Update angles
+    SECOND_ANGLE SECOND_ANGLE + 6  # 6 degrees per second (360 degrees / 60 seconds)
+    IF SECOND_ANGLE >= 360
+        SECOND_ANGLE 0
+        MINUTE_ANGLE MINUTE_ANGLE + 6  # 6 degrees per minute (360 degrees / 60 minutes)
+        IF MINUTE_ANGLE >= 360
+            MINUTE_ANGLE 0
+            HOUR_ANGLE HOUR_ANGLE + 0.5  # 0.5 degrees per minute (30 degrees / 60 minutes)
+        ENDIF
+    ENDIF
+    
+    # Clear the screen for the next frame
+    CLEAR
+ENDLOOP
+
+# End the animation
+ANIM_END
